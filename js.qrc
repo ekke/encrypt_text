@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>js/rsbn/base64.js</file>
+        <file>js/rsbn/jsbn.js</file>
+        <file>js/rsbn/prng4.js</file>
+        <file>js/rsbn/rng.js</file>
+        <file>js/rsbn/rsa.js</file>
+    </qresource>
+</RCC>
