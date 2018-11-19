@@ -13,7 +13,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+    cpp/main.cpp \
+    cpp/applicationui.cpp
 
 RESOURCES += qml.qrc \
         js.qrc
@@ -39,3 +40,16 @@ DISTFILES += \
     android/gradlew.bat
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+ios {
+    # framework needed for RSA classes
+    LIBS += -framework Security
+    LIBS += -framework Foundation
+    SOURCES += ios/src/RSA.m \
+        ios/src/rsautils.mm
+    HEADERS += ios/src/RSA.h \
+        ios/src/rsautils.hpp
+}
+
+HEADERS += \
+    cpp/applicationui.hpp

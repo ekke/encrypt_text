@@ -1,11 +1,17 @@
+// JS solution see here: // see http://www-cs-students.stanford.edu/~tjw/jsbn/rsa.html to test
+
+// Obj-C RSA from ideawu: https://github.com/ideawu/Objective-C-RSA
+// see also http://www.ideawu.com/blog/post/132.html
+
+
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 
-import "js/rsbn/jsbn.js" as MyJsbn
-import "js/rsbn/rsa.js" as MyRsa
-import "js/rsbn/rng.js" as MyRng
-import "js/rsbn/prng4.js" as MyPrng4
-import "js/rsbn/base64.js" as MyBase64
+import "../js/rsbn/jsbn.js" as MyJsbn
+import "../js/rsbn/rsa.js" as MyRsa
+import "../js/rsbn/rng.js" as MyRng
+import "../js/rsbn/prng4.js" as MyPrng4
+import "../js/rsbn/base64.js" as MyBase64
 
 ApplicationWindow {
     id: window
@@ -19,7 +25,7 @@ ApplicationWindow {
         padding: 24
 
         Column {
-            Label {
+            TextField {
                 id: myLabel
                 text: "test"
             } // text
@@ -33,9 +39,21 @@ ApplicationWindow {
                 id: myResult
                 text: "??"
             } // result
+            Button {
+                visible: Qt.platform.os === "ios"
+                text: "Encrypt Obj-C"
+                onClicked: {
+                    doEncryptObjC()
+                }
+            } // button obj-c
+            Label {
+                id: myResultObjC
+                text: "??"
+            } // result obj-c
         } // col
     } // page
 
+    // JAVASCRIPT
     function doEncrypt() {
         var rsa = new MyRsa.RSAKey();
         rsa.setPublic(modulusHex, "10001")
@@ -44,14 +62,25 @@ ApplicationWindow {
         var res = rsa.encrypt(myLabel.text)
         if(res) {
             var after = new Date();
-            console.log("RSA EncryptionTime: " + (after - before) + "ms")
+            console.log("JS RSA EncryptionTime: " + (after - before) + "ms")
             myResult.text = MyRsa.linebrk(res, 64)
         } else {
             myResult.text = "encrypt failed"
         }
+    } // encrypt JS
+
+    // Obj-C
+    // public key is stored at RSAUtils.mm
+    // feel free to set the public key from C++
+    function doEncryptObjC() {
+        var before = new Date();
+        // myResultObjC.text = myApp.encryptText(myLabel.text)
+        myResultObjC.text = MyRsa.linebrk(myApp.encryptText(myLabel.text), 64)
+        var after = new Date();
+        console.log("Obj-C RSA EncryptionTime: " + (after - before) + "ms")
     }
 
-    // see http://www-cs-students.stanford.edu/~tjw/jsbn/rsa.html to test
+    // JS solution needs this:
     property string modulusHex:
        "a5261939975948bb7a58dffe5ff54e65f0498f9175f5a09288810b8975871e99
 af3b5dd94057b0fc07535f5f97444504fa35169d461d0d30cf0192e307727c06
