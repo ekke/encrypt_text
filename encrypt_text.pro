@@ -44,7 +44,7 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ios {
     # framework needed for RSA classes
     LIBS += -framework Security
-    LIBS += -framework Foundation
+
     SOURCES += ios/src/RSA.m \
         ios/src/rsautils.mm
     HEADERS += ios/src/RSA.h \
