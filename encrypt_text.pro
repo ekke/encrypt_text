@@ -16,6 +16,9 @@ SOURCES += \
     cpp/main.cpp \
     cpp/applicationui.cpp
 
+# can be placed under android only, but I prefer to see them always
+OTHER_FILES += android/src/org/ekkescorner/rsa/QAndroidRSAUtils.java
+
 RESOURCES += qml.qrc \
         js.qrc
 
@@ -39,7 +42,11 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+android {
+    QT += androidextras
+
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}
 
 ios {
     # framework needed for RSA classes

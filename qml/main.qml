@@ -40,14 +40,14 @@ ApplicationWindow {
                 text: "??"
             } // result
             Button {
-                visible: Qt.platform.os === "ios"
-                text: "Encrypt Obj-C"
+                visible: Qt.platform.os === "ios" || Qt.platform.os === "android"
+                text: Qt.platform.os === "ios"? "Encrypt Obj-C" : "Encrypt JAVA"
                 onClicked: {
-                    doEncryptObjC()
+                    doEncryptNative()
                 }
             } // button obj-c
             Label {
-                id: myResultObjC
+                id: myResultNative
                 text: "??"
             } // result obj-c
         } // col
@@ -71,13 +71,16 @@ ApplicationWindow {
 
     // Obj-C
     // public key is stored at RSAUtils.mm
+    // JAVA
+    // public key is stored at QAndroidRSAUtils.java
     // feel free to set the public key from C++
-    function doEncryptObjC() {
+    // ATTENTION: no idea yet why Android JAVA fails
+    function doEncryptNative() {
         var before = new Date();
         // myResultObjC.text = myApp.encryptText(myLabel.text)
-        myResultObjC.text = MyRsa.linebrk(myApp.encryptText(myLabel.text), 64)
+        myResultNative.text = MyRsa.linebrk(myApp.encryptText(myLabel.text), 64)
         var after = new Date();
-        console.log("Obj-C RSA EncryptionTime: " + (after - before) + "ms")
+        console.log("native RSA EncryptionTime: " + (after - before) + "ms")
     }
 
     // JS solution needs this:
