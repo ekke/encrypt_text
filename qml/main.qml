@@ -76,7 +76,6 @@ ApplicationWindow {
     // feel free to set the public key from C++
     function doEncryptNative() {
         var before = new Date();
-        // myResultObjC.text = myApp.encryptText(myLabel.text)
         myResultNative.text = MyRsa.linebrk(myApp.encryptText(myLabel.text), 64)
         var after = new Date();
         console.log("native RSA EncryptionTime: " + (after - before) + "ms")
