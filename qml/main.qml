@@ -74,7 +74,6 @@ ApplicationWindow {
     // JAVA
     // public key is stored at QAndroidRSAUtils.java
     // feel free to set the public key from C++
-    // ATTENTION: no idea yet why Android JAVA fails
     function doEncryptNative() {
         var before = new Date();
         // myResultObjC.text = myApp.encryptText(myLabel.text)
