@@ -25,7 +25,8 @@ QString ApplicationUI::encryptText(const QString& theText)
 #if defined (Q_OS_IOS)
     QString encryptedStringBase64 = mRSAUtils->encrypt(theText);
     qDebug() << "OBJ-C ENCR STRING: " << encryptedStringBase64;
-    QString asHex = encryptedStringBase64.toLatin1().toHex();
+    QByteArray ba = QByteArray::fromBase64(encryptedStringBase64.toLatin1());
+    QString asHex(ba.toHex());
     qDebug() << "HEX: " << asHex;
     return asHex;
 #elif defined (Q_OS_ANDROID)
@@ -39,7 +40,8 @@ QString ApplicationUI::encryptText(const QString& theText)
     if(encryptedStringBase64 == "Encryption failed") {
         return encryptedStringBase64;
     }
-    QString asHex = encryptedStringBase64.toLatin1().toHex();
+    QByteArray ba = QByteArray::fromBase64(encryptedStringBase64.toLatin1());
+    QString asHex(ba.toHex());
     qDebug() << "HEX: " << asHex;
     return asHex;
 #else
