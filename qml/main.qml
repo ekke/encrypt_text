@@ -4,8 +4,8 @@
 // see also http://www.ideawu.com/blog/post/132.html
 
 
-import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 import "../js/rsbn/jsbn.js" as MyJsbn
 import "../js/rsbn/rsa.js" as MyRsa
